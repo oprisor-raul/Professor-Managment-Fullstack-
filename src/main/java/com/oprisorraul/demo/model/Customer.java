@@ -1,4 +1,4 @@
-package com.oprisorraul.demo;
+package com.oprisorraul.demo.model;
 
 import jakarta.persistence.*;
 
