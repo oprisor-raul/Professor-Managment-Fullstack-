@@ -1,6 +1,9 @@
 package com.oprisorraul.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
@@ -25,7 +28,9 @@ public class Course {
     private LocalTime localTime;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "professor_id")
+    @JoinColumn(name = "professor_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     private Professor professor;
 
     public Course(){}

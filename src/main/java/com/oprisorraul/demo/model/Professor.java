@@ -20,10 +20,6 @@ public class Professor {
     private String name;
     private String email;
 
-    @OneToMany(mappedBy = "professor", fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
-    private List<Course> courses;
-
     public Integer getId() {
         return id;
     }
@@ -56,11 +52,4 @@ public class Professor {
 
     public Professor() {}
 
-    public List<Course> getCourses() {
-        return courses;
-    }
-
-    public void setCourses(List<Course> courses) {
-        this.courses = courses;
-    }
 }

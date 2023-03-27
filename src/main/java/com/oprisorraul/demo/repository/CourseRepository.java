@@ -8,8 +8,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 public interface CourseRepository extends JpaRepository<Course, Integer> {
     @Modifying
     @Query("UPDATE Course c SET c.professor.id = :professorId WHERE c.id = :courseId")
     void updateProfessorIdByCourse(@Param("courseId") Integer courseId, @Param("professorId") Integer professorId);
+
+    List<Course> findByProfessorId(Integer professorId);
 }

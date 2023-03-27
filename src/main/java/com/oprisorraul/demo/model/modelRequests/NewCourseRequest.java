@@ -13,7 +13,6 @@ public class NewCourseRequest {
     private String name;
     private DayOfWeek dayOfWeek;
     private LocalTime localTime;
-    private Integer professorId;
 
 
     private ProfessorRepository professorRepository;
@@ -23,7 +22,6 @@ public class NewCourseRequest {
         this.name = name;
         this.dayOfWeek = dayOfWeek;
         this.localTime = localTime;
-        this.professorId = professorId;
     }
 
     public String getName() {
@@ -52,11 +50,5 @@ public class NewCourseRequest {
 
     public Professor getProfessorId() {
         return new Professor(1,"Raul","oprisorraul@gmail.com");
-    }
-
-
-
-    public void setProfessorId(Integer professorId) {
-        this.professorId = professorId;
     }
 }

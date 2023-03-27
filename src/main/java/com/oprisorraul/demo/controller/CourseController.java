@@ -6,6 +6,8 @@ import com.oprisorraul.demo.model.modelRequests.NewCourseRequest;
 import com.oprisorraul.demo.repository.CourseRepository;
 import com.oprisorraul.demo.repository.ProfessorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,44 +19,31 @@ public class CourseController {
     @Autowired
     private CourseRepository courseRepository;
 
-
     @Autowired
     private ProfessorRepository professorRepository;
 
-    public CourseController(CourseRepository courseRepository, ProfessorRepository professorRepository) {
-        this.courseRepository = courseRepository;
-        this.professorRepository = professorRepository;
+    @GetMapping("{professorId}/professor")
+    public ResponseEntity<List<Course>> getAllCoursesByProfessorId(@PathVariable(value = "professorId") Integer professorId) {
+        if (!courseRepository.existsById(professorId)) {
+            throw new com.bezkoder.spring.hibernate.onetomany.exception.ResourceNotFoundException("Not found Professor with id = " + professorId);
+        }
+
+        List<Course> courses = courseRepository.findByProfessorId(professorId);
+        return new ResponseEntity<>(courses, HttpStatus.OK);
     }
 
-    @GetMapping
-    public List<Course> getCourses() {
-        return courseRepository.findAll();
+
+    @PostMapping("{professorId}/professor")
+    public ResponseEntity<Course> createCourse (@PathVariable(value = "professorId") int professorId,
+                                                 @RequestBody Course courseRequest) {
+        Course course = professorRepository.findById(professorId).map(professor -> {
+            courseRequest.setProfessor(professor);
+            return courseRepository.save(courseRequest);
+        }).orElseThrow(() -> new com.bezkoder.spring.hibernate.onetomany.exception.ResourceNotFoundException("Not found Tutorial with id = " + professorId));
+
+        return new ResponseEntity<>(course, HttpStatus.CREATED);
     }
 
-    @PostMapping("/{courseId}/professors/{professorId}")
-    public Course addProfessorToCourse(@PathVariable Integer courseId, @PathVariable Integer professorId) {
-        // get course and professor by ID
-        Course course = courseRepository.getById(courseId);
-        Professor professor = professorRepository.getById(professorId);
 
-        // add professor to course and course to professor
-        course.setProfessor(professor);
-
-        // update course and professor
-        courseRepository.updateProfessorIdByCourse(courseId, professorId);
-
-        // return updated course
-        return course;
-    }
-
-    @PostMapping
-    public Course addCourse(@RequestBody NewCourseRequest request) {
-        Course myCourse = new Course();
-        myCourse.setProfessor(request.getProfessorId());
-        myCourse.setName(request.getName());
-        myCourse.setDayOfWeek(request.getDayOfWeek());
-        myCourse.setLocalTime(request.getLocalTime());
-        return courseRepository.save(myCourse);
-    }
 
 }
