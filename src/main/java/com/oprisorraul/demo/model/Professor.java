@@ -20,7 +20,8 @@ public class Professor {
     private String name;
     private String email;
 
-    @OneToMany(mappedBy = "professor")
+    @OneToMany(mappedBy = "professor", fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
     private List<Course> courses;
 
     public Integer getId() {

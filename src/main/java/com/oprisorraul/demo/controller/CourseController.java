@@ -30,24 +30,6 @@ public class CourseController {
         return courseRepository.findAll();
     }
 
-//    @PostMapping("/{courseId}/professors/{professorId}")
-//    public Course addProfessorToCourse(@PathVariable Integer courseId, @PathVariable Integer professorId) {
-//        // get course and professor by ID
-//        Course course = courseRepository.getById(courseId);
-//        Professor professor = professorRepository.getById(professorId);
-//
-//        // add professor to course and course to professor
-//        course.setProfessor(professor);
-//        professor.getCourses().add(course);
-//
-//        // update course and professor
-//        courseRepository.save(course);
-//        professorRepository.save(professor);
-//
-//        // return updated course
-//        return course;
-//    }
-
     @PostMapping("/{courseId}/professors/{professorId}")
     public Course addProfessorToCourse(@PathVariable Integer courseId, @PathVariable Integer professorId) {
         // get course and professor by ID
@@ -68,6 +50,5 @@ public class CourseController {
     public Course addCourse(@RequestBody Course course) {
         return courseRepository.save(course);
     }
-
 
 }

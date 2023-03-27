@@ -24,7 +24,7 @@ public class Course {
 
     private LocalTime localTime;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "professor_id")
     private Professor professor;
 
