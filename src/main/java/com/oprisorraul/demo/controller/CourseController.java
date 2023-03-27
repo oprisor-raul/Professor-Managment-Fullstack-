@@ -2,6 +2,7 @@ package com.oprisorraul.demo.controller;
 
 import com.oprisorraul.demo.model.Course;
 import com.oprisorraul.demo.model.Professor;
+import com.oprisorraul.demo.model.modelRequests.NewCourseRequest;
 import com.oprisorraul.demo.repository.CourseRepository;
 import com.oprisorraul.demo.repository.ProfessorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,8 +48,13 @@ public class CourseController {
     }
 
     @PostMapping
-    public Course addCourse(@RequestBody Course course) {
-        return courseRepository.save(course);
+    public Course addCourse(@RequestBody NewCourseRequest request) {
+        Course myCourse = new Course();
+        myCourse.setProfessor(request.getProfessorId());
+        myCourse.setName(request.getName());
+        myCourse.setDayOfWeek(request.getDayOfWeek());
+        myCourse.setLocalTime(request.getLocalTime());
+        return courseRepository.save(myCourse);
     }
 
 }
