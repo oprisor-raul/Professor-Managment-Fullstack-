@@ -18,7 +18,7 @@ List of key details that I got a deeper understanding of:
   - Through implementing courses and professor data management features, I became capable of using Spring Data JPA to interact with a database and perform CRUD (create, read, update, delete) operations.
   - By using Maven, I gained a deeper understanding of how to create and manage projects with multiple modules and dependencies, and how to configure and customize the build process to suit specific project requirements.
   - Working with Docker, I gained a deeper understanding of how containerization can simplify the development and deployment process, and provide a more efficient way of managing software dependencies.
-  - A good opportunity for me to sharpen my HTML and CSS skills so I can create a more polished and professional-looking user interface.
+  - A good opportunity for me to sharpen my HTML and CSS skills, so I can create a more polished and professional-looking user interface.
   
 
 # License
