@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("api/professor")
@@ -17,8 +18,7 @@ public class ProfessorController {
     private final ProfessorRepository professorRepository;
     private final CourseRepository courseRepository;
 
-    public ProfessorController(ProfessorRepository professorRepository,
-                               CourseRepository courseRepository) {
+    public ProfessorController(ProfessorRepository professorRepository, CourseRepository courseRepository) {
         this.professorRepository = professorRepository;
         this.courseRepository = courseRepository;
     }
@@ -26,6 +26,17 @@ public class ProfessorController {
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Professor> getProfessor() {
         return professorRepository.findAll();
+    }
+
+    @GetMapping("{professorMail}")
+    public ResponseEntity<Integer> getAllCoursesByProfessorId(@PathVariable(value = "professorMail") String professorMail) {
+        Optional<Object> optionalFoundProfessor = professorRepository.findByEmail(professorMail);
+        if (optionalFoundProfessor.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            Professor foundProfessor = (Professor) optionalFoundProfessor.get();
+            return new ResponseEntity<>(foundProfessor.getId(), HttpStatus.OK);
+        }
     }
 
     @PostMapping
@@ -44,7 +55,7 @@ public class ProfessorController {
             return ResponseEntity.notFound().build();
         }
         List<Course> courses = courseRepository.findByProfessorId(professorId);
-        for (Course c: courses) {
+        for (Course c : courses) {
             courseRepository.deleteById(c.getId());
         }
         professorRepository.deleteById(professorId);
