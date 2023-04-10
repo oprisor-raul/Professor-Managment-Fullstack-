@@ -1,10 +1,14 @@
 package com.oprisorraul.demo.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class Professor {
     @Id
     @SequenceGenerator(
@@ -43,13 +47,5 @@ public class Professor {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    public Professor(Integer id, String name, String email) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-    }
-
-    public Professor() {}
 
 }

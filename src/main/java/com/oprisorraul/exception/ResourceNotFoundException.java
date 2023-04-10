@@ -1,4 +1,4 @@
-package com.bezkoder.spring.hibernate.onetomany.exception;
+package com.oprisorraul.exception;
 
 public class ResourceNotFoundException extends RuntimeException {
 

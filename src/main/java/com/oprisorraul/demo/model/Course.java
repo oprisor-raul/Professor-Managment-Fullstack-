@@ -2,14 +2,19 @@ package com.oprisorraul.demo.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
-import java.util.Optional;
 
 @Entity
+@Getter
+@Setter
 public class Course {
     @Id
     @SequenceGenerator(
@@ -33,55 +38,6 @@ public class Course {
     @JsonIgnore
     private Professor professor;
 
-    public Course(){}
-
     private String name;
-
-    public Course(Integer id, Integer professorId, DayOfWeek dayOfWeek, LocalTime localTime, String name) {
-        this.id = id;
-        this.dayOfWeek = dayOfWeek;
-        this.localTime = localTime;
-        this.name = name;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public DayOfWeek getDayOfWeek() {
-        return dayOfWeek;
-    }
-
-    public void setDayOfWeek(DayOfWeek dayOfWeek) {
-        this.dayOfWeek = dayOfWeek;
-    }
-
-    public LocalTime getLocalTime() {
-        return localTime;
-    }
-
-    public void setLocalTime(LocalTime localTime) {
-        this.localTime = localTime;
-    }
-
-    public Professor getProfessor() {
-        return professor;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setProfessor(Professor professor) {
-        this.professor = professor;
-    }
 }
 

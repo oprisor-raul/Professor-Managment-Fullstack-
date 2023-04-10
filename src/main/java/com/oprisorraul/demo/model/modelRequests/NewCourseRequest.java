@@ -1,13 +1,10 @@
 package com.oprisorraul.demo.model.modelRequests;
 
-import com.oprisorraul.demo.controller.ProfessorController;
 import com.oprisorraul.demo.model.Professor;
 import com.oprisorraul.demo.repository.ProfessorRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
-import java.util.Optional;
 
 public class NewCourseRequest {
     private String name;
