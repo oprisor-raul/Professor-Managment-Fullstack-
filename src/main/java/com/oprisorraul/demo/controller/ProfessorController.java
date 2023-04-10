@@ -1,10 +1,6 @@
 package com.oprisorraul.demo.controller;
 
-
-
-import com.oprisorraul.demo.model.Course;
 import com.oprisorraul.demo.model.Professor;
-import com.oprisorraul.demo.model.modelRequests.NewProfessorRequest;
 import com.oprisorraul.demo.repository.ProfessorRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -28,10 +24,7 @@ public class ProfessorController {
     }
 
     @PostMapping
-    public ResponseEntity<Professor> addProfessor(@RequestBody NewProfessorRequest request) {
-        Professor professor = new Professor();
-        professor.setName(request.name());
-        professor.setEmail(request.email());
+    public ResponseEntity<Professor> addProfessor(@RequestBody Professor professor) {
         professorRepository.save(professor);
         return new ResponseEntity<>(professor, HttpStatus.OK);
     }
@@ -42,10 +35,10 @@ public class ProfessorController {
     }
 
     @PutMapping("{professorId}")
-    public void updateProfessor(@PathVariable("professorId") Integer id, @RequestBody NewProfessorRequest request) {
-        Professor professor = professorRepository.findById(id).orElseThrow(() -> new RuntimeException("Professor not found"));
-        professor.setName(request.name());
-        professor.setEmail(request.email());
-        professorRepository.save(professor);
+    public void updateProfessor(@PathVariable("professorId") Integer id, @RequestBody Professor professor) {
+        Professor existingProfessor = professorRepository.findById(id).orElseThrow(() -> new RuntimeException("Professor not found"));
+        existingProfessor.setName(professor.getName());
+        existingProfessor.setEmail(professor.getEmail());
+        professorRepository.save(existingProfessor);
     }
 }
