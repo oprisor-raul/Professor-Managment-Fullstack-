@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
@@ -22,7 +23,8 @@ public class CourseController {
     @GetMapping("{professorId}/professor")
     public ResponseEntity<List<Course>> getAllCoursesByProfessorId(@PathVariable(value = "professorId") Integer professorId) {
         if (!professorRepository.existsById(professorId)) {
-            throw new ResourceNotFoundException("Not found Professor with id = " + professorId);
+//            throw new ResourceNotFoundException("Not found Professor with id = " + professorId);
+            return ResponseEntity.notFound().build();
         }
 
         List<Course> courses = courseRepository.findByProfessorId(professorId);
@@ -37,5 +39,28 @@ public class CourseController {
         }).orElseThrow(() -> new ResourceNotFoundException("Not found Tutorial with id = " + professorId));
 
         return new ResponseEntity<>(course, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/{courseId}")
+    public ResponseEntity<HttpStatus> deleteCourse(@PathVariable("courseId") Integer courseId) {
+        if(courseRepository.findById(courseId).isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        courseRepository.deleteById(courseId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PutMapping("/{courseId}")
+    public ResponseEntity<Course> updateCourse(@PathVariable("courseId") Integer courseId, @RequestBody Course courseRequest) {
+        Optional<Course> courseOptional = courseRepository.findById(courseId);
+        if (courseOptional.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        Course course = courseOptional.orElseThrow(() -> new ResourceNotFoundException("Course not found with ID: " + courseId));
+        course.setName(courseRequest.getName());
+        course.setLocalTime(courseRequest.getLocalTime());
+        course.setProfessor(course.getProfessor());
+        course.setDayOfWeek(course.getDayOfWeek());
+        return new ResponseEntity<>(courseRepository.save(course), HttpStatus.OK);
     }
 }
