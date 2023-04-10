@@ -43,7 +43,7 @@ public class CourseController {
 
     @DeleteMapping("/{courseId}")
     public ResponseEntity<HttpStatus> deleteCourse(@PathVariable("courseId") Integer courseId) {
-        if(courseRepository.findById(courseId).isEmpty()) {
+        if (courseRepository.findById(courseId).isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         courseRepository.deleteById(courseId);
