@@ -20,6 +20,8 @@ List of key details that I got a deeper understanding of:
   - Working with Docker, I gained a deeper understanding of how containerization can simplify the development and deployment process, and provide a more efficient way of managing software dependencies.
   - A good opportunity for me to sharpen my HTML and CSS skills, so I can create a more polished and professional-looking user interface.
   
+# A short cheat-sheet i built while building this project:
+https://shard-geometry-1d6.notion.site/Java-Spring-Annotations-2df23594551743bba1d3c0e5ceba8430
 
 # License
 [MIT](https://choosealicense.com/licenses/mit/)

@@ -27,7 +27,6 @@ public class ProfessorController {
     public List<Professor> getProfessor() {
         return professorRepository.findAll();
     }
-
     @GetMapping("{professorMail}")
     public ResponseEntity<Integer> getAllCoursesByProfessorId(@PathVariable(value = "professorMail") String professorMail) {
         Optional<Object> optionalFoundProfessor = professorRepository.findByEmail(professorMail);
@@ -38,6 +37,7 @@ public class ProfessorController {
             return new ResponseEntity<>(foundProfessor.getId(), HttpStatus.OK);
         }
     }
+
 
     @PostMapping
     public ResponseEntity<Professor> addProfessor(@RequestBody Professor professor) {
