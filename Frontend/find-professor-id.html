@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Course Management System - Find Professor ID</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        color: #333;
+        background-color: #f7f7f7;
+      }
+
+      .header {
+        background-color: #333;
+        color: #fff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 80px;
+        padding: 0 20px;
+      }
+
+      .header h1 {
+        margin: 0;
+        font-size: 24px;
+        font-weight: 600;
+      }
+
+      .header a {
+        color: #fff;
+        text-decoration: none;
+        font-weight: 500;
+        margin-right: 20px;
+      }
+
+      .header a:hover {
+        text-decoration: underline;
+      }
+
+      label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #333;
+      }
+
+      input[type="email"] {
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: none;
+        width: 100%;
+        max-width: 300px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      input[type="submit"] {
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: none;
+        background-color: #333;
+        color: #fff;
+        cursor: pointer;
+      }
+
+      input[type="submit"]:hover {
+        background-color: #555;
+      }
+
+      /* new styles */
+      .form-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 50px;
+      }
+
+      h2 {
+        font-size: 32px;
+        margin-bottom: 20px;
+      }
+
+    </style>
+  </head>
+
+  <body>
+    <div class="header">
+      <a href="index.html">Home</a>
+    </div>
+
+    <div class="form-container">
+      <h2>Find your ID!</h2>
+      <form id="find-professor-form" method="get">
+        <label for="email">Enter your email address:</label>
+        <input type="email" id="email" name="email" required />
+        <br />
+        <input type="submit" value="Find ID" />
+      </form>
+
+      <div id="result"></div>
+    </div>
+
+    <script>
+      const form = document.querySelector("#find-professor-form");
+      const result = document.querySelector("#result");
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const email = document.querySelector("#email").value;
+        const actionURL = `http://localhost:8080/api/professor/${encodeURIComponent(
+          email
+        )}`;
+
+        fetch(actionURL)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(response.status);
+            }
+            return response.text();
+          })
+          .then((data) => {
+            result.innerHTML = `
+  <p>Your professor ID is: <strong>${data}</strong></p>
+  <p>
+    <a class="button" href="display-course.html">View Courses</a>
+    <a class="button" href="add-course.html">Add Course</a>
+  </p>
+`;
+          })
+          .catch((error) => {
+            if (error.message === "404") {
+              result.innerHTML = `<p>Professor with email '${email}' not found.</p>`;
+            } else {
+              result.innerHTML = `<p>An error occurred while finding your ID: ${error}</p>`;
+            }
+          });
+      });
+    </script>
+  </body>
+</html>

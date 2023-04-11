@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Course Management System</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        color: #333;
+        background-color: #f7f7f7;
+      }
+
+      .header {
+        background-color: #333;
+        color: #fff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 80px;
+        padding: 0 20px;
+      }
+
+      .header h1 {
+        margin: 0;
+        font-size: 24px;
+        font-weight: 600;
+      }
+
+      .header a {
+        color: #fff;
+        text-decoration: none;
+        font-weight: 500;
+        margin-right: 20px;
+      }
+
+      .header a:hover {
+        text-decoration: underline;
+      }
+
+      .container {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #333;
+      }
+
+      input[type="text"] {
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: none;
+        width: 100%;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      input[type="submit"] {
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: none;
+        background-color: #333;
+        color: #fff;
+        cursor: pointer;
+      }
+
+      input[type="submit"]:hover {
+        background-color: #555;
+      }
+
+      .help-label {
+        display: block;
+        font-weight: bold;
+        margin-top: 20px;
+        margin-bottom: 10px;
+        color: #333;
+      }
+
+      .help-label a {
+        color: #ffa500;
+        text-decoration: none;
+      }
+
+      .help-label a:hover {
+        text-decoration: underline;
+        color: #ffc06e;
+      }
+      #course-table {
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+
+      #course-table th,
+      #course-table td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #ccc;
+      }
+
+      #course-table th {
+        background-color: #333;
+        color: #fff;
+        font-weight: 500;
+      }
+
+      #course-table td {
+        font-weight: 400;
+      }
+
+      #course-table tr:hover {
+        background-color: #f5f5f5;
+      }
+      #course-table {
+        display: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="header">
+      <a href="index.html">Home</a>
+    </div>
+    <div class="container">
+      <label for="findID" class="help-label"
+        ><a href="find-professor-id.html">I need help finding my ID</a></label
+      >
+
+      <form id="course-form" method="get">
+        <label for="professorID"
+          >Enter your Professor ID to view your courses:</label
+        >
+        <input type="text" id="professorID" name="professorID" required />
+        <br />
+        <input type="submit" value="View Courses" />
+        <script>
+          const form = document.querySelector("#course-form");
+
+          form.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const professorID = document.querySelector("#professorID").value;
+            const actionURL = `http://localhost:8080/api/course/${professorID}/professor`;
+
+            fetch(actionURL)
+              .then((response) => response.json())
+              .then((data) => {
+                // clear any existing rows
+                tableBody.innerHTML = "";
+
+                // populate the table with the new data
+                data.forEach((course) => {
+                  const row = document.createElement("tr");
+                  row.innerHTML = `
+          <td>${course.id}</td>
+          <td>${course.dayOfWeek}</td>
+          <td>${course.localTime}</td>
+          <td>${course.name}</td>
+        `;
+                  tableBody.appendChild(row);
+                });
+
+                // show the table
+                const table = document.querySelector("#course-table");
+                table.style.display = "table";
+              })
+              .catch((error) => {
+                console.error(error);
+              });
+          });
+        </script>
+      </form>
+
+      <table id="course-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Day of Week</th>
+            <th>Local Time</th>
+            <th>Name</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <script>
+      const tableBody = document.querySelector("#course-table tbody");
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const professorID = document.querySelector("#professorID").value;
+        const actionURL = `http://localhost:8080/api/course/${professorID}/professor`;
+
+        fetch(actionURL)
+          .then((response) => response.json())
+          .then((data) => {
+            // clear any existing rows
+            tableBody.innerHTML = "";
+
+            // populate the table with the new data
+            data.forEach((course) => {
+              const row = document.createElement("tr");
+              row.innerHTML = `
+                <td>${course.id}</td>
+                <td>${course.dayOfWeek}</td>
+                <td>${course.localTime}</td>
+                <td>${course.name}</td>
+              `;
+              tableBody.appendChild(row);
+            });
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      });
+    </script>
+  </body>
+</html>
