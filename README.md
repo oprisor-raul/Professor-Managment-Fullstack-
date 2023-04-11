@@ -8,6 +8,7 @@ The solution includes a Java Spring RESTful API for the back-end and a responsiv
 
 # Showcase videos:
 https://user-images.githubusercontent.com/99093377/230957670-bd97d503-9cf2-4829-8ed0-276d45f79e59.mov
+https://user-images.githubusercontent.com/99093377/231284262-5225393a-e6f5-4cf8-adcd-161d2aee1654.mov
 
 # Bottom Lines from the Project:
 The main takeaway from this project is a better and much clearer understanding of the Java Spring framework and how it can be used. 
