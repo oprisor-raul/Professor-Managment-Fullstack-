@@ -25,5 +25,16 @@ List of key details that I got a deeper understanding of:
 # A short cheat-sheet i built while building this project:
 https://shard-geometry-1d6.notion.site/Java-Spring-Annotations-2df23594551743bba1d3c0e5ceba8430
 
+# Screenshots:
+<img width="1440" alt="index" src="https://user-images.githubusercontent.com/99093377/231285201-89ad04ab-1db9-4d81-9c7a-40f2bd72ab41.png">
+
+<img width="1440" alt="add-professor" src="https://user-images.githubusercontent.com/99093377/231285213-39cdcff3-c5cb-4bb8-8daf-6060996d5d00.png">
+
+<img width="1440" alt="find-id" src="https://user-images.githubusercontent.com/99093377/231285223-2ea91dde-8c33-4d16-8686-876e8c9053c2.png">
+
+<img width="1440" alt="add-course" src="https://user-images.githubusercontent.com/99093377/231285277-83d21fce-bbc2-418c-bac0-424647882781.png">
+
+<img width="1440" alt="display-course" src="https://user-images.githubusercontent.com/99093377/231285286-b3c09d82-f99b-4a98-a3b8-57352053f41f.png">
+
 # License
 [MIT](https://choosealicense.com/licenses/mit/)
